@@ -11,7 +11,6 @@ public class Tomes {
             this.vcnNumber = slingId;
             this.title = addName;
             this.author = sanctum;
-            //throw exception if there is already book with a same vcn
     }
 
     public String getVcnNumber(){
@@ -28,13 +27,18 @@ public class Tomes {
         return author;
     }
 
-    public Boolean borrowed(){
+    public Boolean borrowed(String src){
+        isBorrowed = True;
         return isBorrowed;
     }
 
     public String borrowedby(String name){
         borrowedBy = name;
         return borrowedBy;
+    }
+
+    public void printTomes(){
+        System.out.println(vcnNumber + " " + title + " " + author);
     }
     
 }
