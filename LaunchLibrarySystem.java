@@ -9,7 +9,7 @@ public class LaunchLibrarySystem {
 
     //feel free to change any part of this code
     //NB: this code is incomplete. It's just to give you a quick start on the main menu of the library.
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
 
         
@@ -42,7 +42,6 @@ public class LaunchLibrarySystem {
                     library.addSorcerer(sorcererId, sorcererName, sanctum);
                     //logic to register the sorcerer here.
                     //you can for example call a function or some function within a class, etc.
-                    
                     break;
                 case 2:
                     System.out.print("Enter VCN (13 digits): ");
@@ -61,8 +60,8 @@ public class LaunchLibrarySystem {
                 case 4:
                     System.out.print("Enter VCN to search for: ");
                     String searchVcn = scanner.nextLine();
-                    Tomes toString = searchTomes(searchVcn);
-                    toString.printTomes();
+                    library.printSearchTomes(searchVcn);
+                    //toString.printTomes();
                     //call some function here to search for the tome.
                     break;
                 case 5:
@@ -70,7 +69,7 @@ public class LaunchLibrarySystem {
                     String lendVcn = scanner.nextLine();
                     System.out.print("Enter Sling Ring ID of the borrower: ");
                     String borrowerId = scanner.nextLine();
-                    library.lendATome(borrowerId, lendVcn);
+                    library.lendATome(lendVcn, borrowerId);
                     //call some function here to lend out the tome.
                     break;
                 case 6:
@@ -97,4 +96,6 @@ public class LaunchLibrarySystem {
         }
     }
 }
+
+
 
