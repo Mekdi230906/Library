@@ -45,19 +45,19 @@ public class MainSystemLibrary {
 
     //---------------------------------- 4 & 4+
 
-    public String searchTomes (String vcn) throws Exception{
+    public Tomes searchTomes (String  vcn) throws Exception{
         for(int i = 0; i < tomes.size(); i++){
             if(vcn.equals(tomes.get(i).getVcnNumber())){
-                return tomes.get(i).getVcnNumber();
+                return tomes.get(i);
             }
         }
         throw new Exception("Not Found");
     }
 
-    public String searchSorcerer(String input) throws Exception{
+    public Sorcerer searchSorcerer(String input) throws Exception{
         for(int i = 0; i < sorcerer.size(); i++){
             if(input.equals(sorcerer.get(i).getId())){
-                return sorcerer.get(i).getId();
+                return sorcerer.get(i);
             }
         }
         throw new Exception("Not Found");
@@ -65,33 +65,56 @@ public class MainSystemLibrary {
 
 
     //--------------------------------- 5
-
+    public Boolean checkIfBorrowed(Tomes tome){
+        return tome.borrowed(tome);
+    }
+    // Commment:
+    // I can use void instead of Boolean in here,
     public Boolean lendATome(String vcn, String id) throws Exception{
-        String src = searchTomes(vcn);
-        String src2 = searchSorcerer(id);
+        Tomes src = searchTomes(vcn);
+        Sorcerer src2 = searchSorcerer(id);
         if(src == null){
             throw new Exception("Tome is not found.");
-            if(src2 == null){
-                throw new Exception("Sorcerer is not found.");
-            }
         }
-        else{
-           tomes.getVcnNumber();
-        }
-
-        
         if(src2 == null){
-            throw new Exception("Tome is not found.");
+            throw new Exception("ID is not found.");
         }
-        else{
-           
+        if(src.borrowed(src)){
+            System.out.println("This tome is unavailable!");
+            return null;
         }
 
+        src.borrowedby(src2);
+        return true;
     }
 
     //---------------------------------- 6
+    public void retrunTome(String id, String vcn) throws Exception{
+        Tomes src = searchTomes(vcn);
+        Sorcerer src2 = searchSorcerer(id);
+        Boolean checking = checkIfBorrowed(src);
+        if(src == null){
+            throw new Exception("Tome is not found.");
+        }
+        else if(src2 == null){
+            throw new Exception("ID is not found.");
+        }
+        else if(checking == false){
+            throw new Exception("Tome is not rented.");
+        }
+        else{
+            src.returnTome(src);
+            System.out.println("Tome returned successfully!");
+        }
+    }
 
-
-
+    //---------------------------------- 7
+    public void whichBooksBorrowed(Tomes tome){
+        System.out.println("Unavailable books: \n");
+        for(int i = 0; i < tomes.size(); i++){
+            if(checkIfBorrowed(tomes.get(i)) == true){
+                System.out.println(tomes.get(i));
+            }
+        }
+    }
 }
-
