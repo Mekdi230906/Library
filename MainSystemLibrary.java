@@ -1,38 +1,41 @@
 package Library;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainSystemLibrary {
-    public ArraylList<Sorecerer> sorcerer = new ArrayList<>();
-    public ArrayList<Tomes> tomes = new ArrayList<>();
+    public ArrayList<Sorcerer> sorcerer;
+    public ArrayList<Tomes> tomes;
 
-    public void registerSorcerer(String sling_id, String name, String sanctum)
-    {
+    public MainSystemLibrary(){
+        sorcerer = new ArrayList<>();
+        tomes = new ArrayList<>();
+    }
+
+    //--------------------------------- 1 
+
+    public Boolean addSorcerer(Sorcerer sorcerer_input){
         for(int i = 0; i < sorcerer.size(); i++){
-            if(sling_id.equals(sorcerer.get(i).getId())){
-                System.out.println("Sling ID existed!");
-            }
-            else{
-                sorcerer.add(new Sorcerer(sling_id, name, sanctum));
+            if(sorcerer.get(i).getId().toLowerCase().equals(sorcerer_input.getId().toLowerCase())){
+                return false;
             }
         }
-        
+        sorcerer.add(sorcerer_input);
+        return true;
     }
 
+    //---------------------------------- 2
 
-    public void registerTomes(String vcn, String title, String author_name)
-    {
+    public Boolean addTome(Tomes tome_input){
         for(int i = 0; i < tomes.size(); i++){
-            if(vcn.equals(tomes.get(i).getVcnNumber())){
-                System.out.println("A tome is already exist!");
-            }
-            else{
-                tomes.add(new Sorcerer(vcn, title, author_name));
+            if(tomes.get(i).getVcnNumber().toLowerCase().equals(tome_input.getVcnNumber().toLowerCase())){
+                return false;
             }
         }
-        
+        tomes.add(tome_input);
+        return true;
     }
+
+    //--------------------------------- 3
 
     public void printTomes(){
         for(int i = 0; i < tomes.size(); i++){
@@ -40,21 +43,54 @@ public class MainSystemLibrary {
         }
     }
 
-    public String searchTomes throws Exception(String vcn){
+    //---------------------------------- 4 & 4+
+
+    public String searchTomes (String vcn) throws Exception{
         for(int i = 0; i < tomes.size(); i++){
             if(vcn.equals(tomes.get(i).getVcnNumber())){
                 return tomes.get(i).getVcnNumber();
             }
-            else throws new Exception(){
-                System.out.println("Tome is not found.");
-            }
         }
+        throw new Exception("Not Found");
     }
 
-    public Boolean lendATome(String vcn){
-        Tomes src = searchTomes(vcn);
-        //not done, still thinking about it
+    public String searchSorcerer(String input) throws Exception{
+        for(int i = 0; i < sorcerer.size(); i++){
+            if(input.equals(sorcerer.get(i).getId())){
+                return sorcerer.get(i).getId();
+            }
+        }
+        throw new Exception("Not Found");
     }
+
+
+    //--------------------------------- 5
+
+    public Boolean lendATome(String vcn, String id) throws Exception{
+        String src = searchTomes(vcn);
+        String src2 = searchSorcerer(id);
+        if(src == null){
+            throw new Exception("Tome is not found.");
+            if(src2 == null){
+                throw new Exception("Sorcerer is not found.");
+            }
+        }
+        else{
+           tomes.getVcnNumber();
+        }
+
+        
+        if(src2 == null){
+            throw new Exception("Tome is not found.");
+        }
+        else{
+           
+        }
+
+    }
+
+    //---------------------------------- 6
+
 
 
 }
