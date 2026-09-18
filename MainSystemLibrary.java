@@ -13,25 +13,25 @@ public class MainSystemLibrary {
 
     //--------------------------------- 1 
 
-    public Boolean addSorcerer(Sorcerer sorcerer_input){
+    public Boolean addSorcerer(String id, String name, String home){
         for(int i = 0; i < sorcerer.size(); i++){
-            if(sorcerer.get(i).getId().toLowerCase().equals(sorcerer_input.getId().toLowerCase())){
+            if(sorcerer.get(i).getId().toLowerCase().equals(id.toLowerCase())){
                 return false;
             }
         }
-        sorcerer.add(sorcerer_input);
+        sorcerer.add(new Sorcerer(id, name, home));
         return true;
     }
 
     //---------------------------------- 2
 
-    public Boolean addTome(Tomes tome_input){
+    public Boolean addTome(String vcn, String name, String author_name){
         for(int i = 0; i < tomes.size(); i++){
-            if(tomes.get(i).getVcnNumber().toLowerCase().equals(tome_input.getVcnNumber().toLowerCase())){
+            if(tomes.get(i).getVcnNumber().toLowerCase().equals(vcn.toLowerCase())){
                 return false;
             }
         }
-        tomes.add(tome_input);
+        tomes.add(new Tomes(vcn, name, author_name));
         return true;
     }
 
@@ -39,7 +39,7 @@ public class MainSystemLibrary {
 
     public void printTomes(){
         for(int i = 0; i < tomes.size(); i++){
-            tomes.get(i).printTomes();
+            System.out.println(tomes.get(i).printTomes());
         }
     }
 
@@ -54,6 +54,11 @@ public class MainSystemLibrary {
         throw new Exception("Not Found");
     }
 
+    public void printSearchTomes(String vcn) throws Exception {
+        Tomes toString = searchTomes(vcn);
+        System.out.println(toString.printTomes());
+    }
+
     public Sorcerer searchSorcerer(String input) throws Exception{
         for(int i = 0; i < sorcerer.size(); i++){
             if(input.equals(sorcerer.get(i).getId())){
@@ -66,8 +71,8 @@ public class MainSystemLibrary {
 
     //--------------------------------- 5
     public Boolean checkIfBorrowed(String tome_input) throws Exception{
-        Tome src = searchTomes(tome_input);
-        return tome.borrowed(src);
+        Tomes src = searchTomes(tome_input);
+        return src.borrowed();
     }
     // Commment:
     // I can use void instead of Boolean in here,
@@ -87,6 +92,7 @@ public class MainSystemLibrary {
         }
 
         src.borrowedby(src2);
+        System.out.println("Success!");
         return true;
     }
 
@@ -94,7 +100,7 @@ public class MainSystemLibrary {
     public void returnTome( String vcn) throws Exception{
         Tomes src = searchTomes(vcn);
         //Sorcerer src2 = searchSorcerer(id);
-        Boolean checking = checkIfBorrowed(src);
+        Boolean checking = checkIfBorrowed(vcn);
         if(src == null){
             throw new Exception("Tome is not found.");
         }
@@ -110,11 +116,18 @@ public class MainSystemLibrary {
     //---------------------------------- 7
     public void whichBooksBorrowed(){
         System.out.println("Unavailable books: \n");
+        String check;
+        /* 
         for(int i = 0; i < tomes.size(); i++){
+            check = tomes.get(i).getVcnNumber();
             if(checkIfBorrowed(tomes.get(i)) == true){
                 System.out.println(tomes.get(i));
+            }
+        }*/
+        for(int i = 0; i < tomes.size(); i++){
+            if(tomes.get(i).borrowed()){
+                System.out.println(tomes.get(i).printTomes());
             }
         }
     }
 }
-
