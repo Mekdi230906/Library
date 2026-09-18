@@ -34,7 +34,7 @@ public class Tomes {
         return borrowedBy;
     }
 
-    public Boolean borrowed(Tomes tome){
+    public Boolean borrowed(){
         return isBorrowed;
     }
 
@@ -44,7 +44,7 @@ public class Tomes {
     }
 
     public String printTomes(){
-        return "VCN: " + vcnNumber + ", Title:  " + title + ", Author " + author;
+        return "VCN: " + vcnNumber + ", Title:  " + title + ", Author: " + author;
     }
     
 }
